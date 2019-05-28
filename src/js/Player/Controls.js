@@ -1,13 +1,22 @@
 import React from 'react';
 
 class Controls extends React.Component{
+	
+	constructor(props) {
+	    super(props);
+		console.log(this.props)
+	}
+	
+	
     render() {
+		let playStatusClassName = ( this.props.isPlay == true ) ? 'audio-stop' : 'audio-play'
+		
         return (
             <div className="audio-btn">
                 <div className="audio-select">
-                    <div className="audio-prev"></div>
-                    <div className="audio-play"></div>
-                    <div className="audio-next"></div>
+                    <div className="audio-prev" onClick={this.props.onPrev}></div>
+                    <div className={playStatusClassName} onClick={this.props.onPlay}></div>
+                    <div className="audio-next" onClick={this.props.onNext}></div>
                     {/*<div className="audio-menu"></div>*/}
                     {/*<div className="audio-volume"></div>*/}
                 </div>

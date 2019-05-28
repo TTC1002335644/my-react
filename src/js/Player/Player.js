@@ -5,6 +5,7 @@ import Time from "./Time";
 import Progress from "./Progress";
 import Controls from "./Controls";
 
+
 /**
  * 播放器组件
  */
@@ -12,29 +13,31 @@ class Player extends React.Component{
 
     constructor(props){
         super(props);
-        this.setState({
-            tracks : this.getDefaultProps(),
-            data : this.getInitialState()
-        });
+		let songList = this.getInitSongLists();
+        this.state = {
+            tracks : songList
+        };
+		let songIndex = this.getInitSongIndex();
+		this.state = songIndex;
+		this.state.tracks = songList
     }
 
-    getDefaultProps(){
+    getInitSongLists(){
         //歌单列表
-        return {
-            "tracks": [
+        return [
                 {
-                    "name": "元日",
+                    "name": "可惜没如果--林俊杰",
                     "artists": [
                         {
-                            "name": "于文华",
+                            "name": "林俊杰",
                         }
                     ],
                     "album": {
-                        "name": "国学唱歌集",
-                        "picUrl": "http://p3.music.126.net/SR9eFEjRB0NsscxN7-fHMw==/3344714372906000.jpg",
+                        "name": "流行歌曲",
+                        "picUrl": "http://singerimg.kugou.com/uploadpic/softhead/200/20161209/20161209164303152140.jpg",
                     },
                     "duration": 136829,
-                    "mp3Url": "http://m2.music.126.net/rUcfqqZbq7TIfJeAHfTrkw==/3376600210116829.mp3"
+                    "mp3Url": "http://win.web.rf01.sycdn.kuwo.cn/d703c0f2f7cec5efd41dc598b19b79d3/5ced66b3/resource/n3/60/43/3916978711.mp3"
                 },
                 {
                     "name": "元日 ",
@@ -48,35 +51,78 @@ class Player extends React.Component{
                         "picUrl": "http://p4.music.126.net/ly2FJHh5-lYMdC3NZxvavQ==/7714173580661848.jpg",
                     },
                     "duration": 109000,
-                    "mp3Url": "http://m2.music.126.net/jwwZVlWJ78HEarft42uKUQ==/7906588115920636.mp3"
+                    "mp3Url": "http://www.ytmp3.cn/down/69466.mp3"
                 },
                 {
-                    "name": "青龙·花木苍苍",
+                    "name": "白色风车-周杰伦",
                     "artists": [
                         {
-                            "name": "五色石南叶",
+                            "name": "流行歌曲",
                         }
                     ],
                     "album": {
                         "name": "热门华语234",
-                        "picUrl": "http://p4.music.126.net/tHAfnugCElS93EDp5cHLIw==/8909342719897560.jpg",
+                        "picUrl": "http://singerimg.kugou.com/uploadpic/softhead/200/20161209/20161209164303152140.jpg",
                     },
                     "duration": 295575,
-                    "mp3Url": "http://m2.music.126.net/rnq_W32zFX_utQbBhE0xkg==/8934631487358481.mp3"
-                }]
-        };
+                    "mp3Url": "http://www.ytmp3.cn/down/69922.mp3"
+                }];
     }
 
 
-    getInitialState(){
+    getInitSongIndex(){
         return {
-            currentTrackLen: this.props.tracks.length, //歌单歌曲数
+            currentTrackLen: this.state.tracks.length, //歌单歌曲数
             currentTrackIndex: 0, //当前播放的歌曲索引，默认加载第一首歌
             currentTime: 0, //当前歌曲播放的时间
             currentTotalTime: 0, //当前歌曲的总时间
-            playStatus: true, //true为播放状态，false为暂停状态
+            playStatus: false, //true为播放状态，false为暂停状态
         };
     }
+	
+	
+	updatePlayStatus(){
+		let audio = document.getElementById('audio');
+		if(this.state.playStatus){
+			audio.play();
+		}else{
+			audio.pause();
+		}
+		
+	}
+	
+	play = ()=>{
+		this.setState({
+			playStatus : !this.state.playStatus
+		}, () =>{
+			this.updatePlayStatus();
+		});
+
+	}
+	
+	prev =()=>{
+		if(this.state.currentTrackIndex - 1 < 0 ){
+			
+		}else{
+			this.setState({
+				currentTrackIndex : this.state.currentTrackIndex - 1
+			},() => {
+				this.updatePlayStatus();
+			});
+		}
+	}
+	
+	next =()=>{
+		if(this.state.currentTrackIndex + 1 > this.state.currentTrackLen ){
+			
+		}else{
+			this.setState({
+				currentTrackIndex : this.state.currentTrackIndex + 1
+			},() => {
+				this.updatePlayStatus();
+			});
+		}
+	}
 
 
     render (){
@@ -84,10 +130,10 @@ class Player extends React.Component{
             <div className="audio-box">
                 <div className="audio-container">
                     {/*封面*/}
-                    <Cover />
+                    <Cover cover={this.state.tracks[this.state.currentTrackIndex]} />
                     <div className="audio-view">
                         {/*音乐信息*/}
-                        <TrackInfo track={this.props.tracks[this.state.currentTrackIndex]}/>
+                        <TrackInfo track={this.state.tracks[this.state.currentTrackIndex]}/>
                         <div className="audio-body">
                             <div className="audio-backs">
                                 {/*时间显示*/}
@@ -97,8 +143,9 @@ class Player extends React.Component{
                             </div>
                         </div>
                         {/*控制按钮*/}
-                        <Controls />
-                        <audio id="audio"></audio>
+                        <Controls isPlay={this.state.playStatus} onPlay={this.play} onPrev={this.prev} onNext={this.next} />
+						
+                        <audio id="audio" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>
                     </div>
                 </div>
             </div>

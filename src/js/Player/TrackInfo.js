@@ -1,6 +1,11 @@
 import React from 'react';
 
 class TrackInfo extends React.Component{
+	
+	constructor(props) {
+	    super(props);
+	}
+	
     render() {
         return (
             <h3 className="audio-title">{this.props.track.name}</h3>

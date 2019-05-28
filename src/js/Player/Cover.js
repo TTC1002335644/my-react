@@ -1,9 +1,13 @@
 import React from 'react';
 
 class Cover extends React.Component{
+	constructor(props) {
+	    super(props);
+	}
+	
     render() {
         let coverBack = {
-            backgroundImage:`url('http://singerimg.kugou.com/uploadpic/softhead/200/20161209/20161209164303152140.jpg')`
+            backgroundImage:`url(` + this.props.cover.album.picUrl + `)`
         };
         return (
             <div className="audio-cover" style={coverBack}></div>
