@@ -4,13 +4,12 @@ class Controls extends React.Component{
 	
 	constructor(props) {
 	    super(props);
-		console.log(this.props)
+	    this.state = {};
 	}
 	
 	
     render() {
-		let playStatusClassName = ( this.props.isPlay == true ) ? 'audio-stop' : 'audio-play'
-		
+		let playStatusClassName = ( this.props.isPlay === true ) ? 'audio-stop' : 'audio-play';
         return (
             <div className="audio-btn">
                 <div className="audio-select">

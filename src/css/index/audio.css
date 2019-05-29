@@ -3,6 +3,11 @@
     margin: 0;
     padding: 0;
 }
+
+html{
+    touch-action:none;
+    touch-action:pan-y;
+}
 body{
     font-family: 'Microsoft YaHei', 'Lantinghei SC', 'Open Sans', Arial, 'Hiragino Sans GB', 'STHeiti', 'WenQuanYi Micro Hei', 'SimSun', sans-serif;
 }
@@ -138,7 +143,7 @@ ul li{
     background-position: center center;
     background-repeat: no-repeat;
     float: left;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 .audio-prev{
     background-image: url('../../images/index/prev.png');

@@ -1,8 +1,9 @@
 import React from 'react';
 
 class Cover extends React.Component{
-	constructor(props) {
+    constructor(props) {
 	    super(props);
+	    this.state = {};
 	}
 	
     render() {

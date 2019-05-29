@@ -17,9 +17,9 @@ class Player extends React.Component{
         this.state = {
             tracks : songList
         };
-		let songIndex = this.getInitSongIndex();
-		this.state = songIndex;
-		this.state.tracks = songList
+		this.state = this.getInitSongIndex();
+		this.state.tracks = songList;
+        console.log(this.state);
     }
 
     getInitSongLists(){
@@ -36,8 +36,8 @@ class Player extends React.Component{
                         "name": "流行歌曲",
                         "picUrl": "http://singerimg.kugou.com/uploadpic/softhead/200/20161209/20161209164303152140.jpg",
                     },
-                    "duration": 136829,
-                    "mp3Url": "http://win.web.rf01.sycdn.kuwo.cn/d703c0f2f7cec5efd41dc598b19b79d3/5ced66b3/resource/n3/60/43/3916978711.mp3"
+                    "duration": 294000,
+                    "mp3Url": "http://www.ytmp3.cn/down/49138.mp3"
                 },
                 {
                     "name": "元日 ",
@@ -66,7 +66,8 @@ class Player extends React.Component{
                     },
                     "duration": 295575,
                     "mp3Url": "http://www.ytmp3.cn/down/69922.mp3"
-                }];
+                }
+                ];
     }
 
 
@@ -77,10 +78,20 @@ class Player extends React.Component{
             currentTime: 0, //当前歌曲播放的时间
             currentTotalTime: 0, //当前歌曲的总时间
             playStatus: false, //true为播放状态，false为暂停状态
+            progress: '0%', //播放进度
         };
     }
-	
-	
+
+    /**
+     * 更新更新进度
+     *
+     * */
+    updateProgress = (progress)=>{
+        this.setState({
+           progress :  progress
+        });
+    }
+
 	updatePlayStatus(){
 		let audio = document.getElementById('audio');
 		if(this.state.playStatus){
@@ -90,38 +101,38 @@ class Player extends React.Component{
 		}
 		
 	}
-	
+
 	play = ()=>{
 		this.setState({
 			playStatus : !this.state.playStatus
 		}, () =>{
 			this.updatePlayStatus();
 		});
+	}
 
+	pause = ()=>{
+        this.setState({
+            playStatus : false
+        }, () =>{
+            this.updatePlayStatus();
+        });
+    }
+
+	prev = ()=>{
+        this.setState({
+            currentTrackIndex : (this.state.currentTrackIndex - 1 < 0 ) ? this.state.currentTrackLen - 1 : this.state.currentTrackIndex - 1
+        },() => {
+            this.updatePlayStatus();
+        });
 	}
 	
-	prev =()=>{
-		if(this.state.currentTrackIndex - 1 < 0 ){
-			
-		}else{
-			this.setState({
-				currentTrackIndex : this.state.currentTrackIndex - 1
-			},() => {
-				this.updatePlayStatus();
-			});
-		}
-	}
-	
-	next =()=>{
-		if(this.state.currentTrackIndex + 1 > this.state.currentTrackLen ){
-			
-		}else{
-			this.setState({
-				currentTrackIndex : this.state.currentTrackIndex + 1
-			},() => {
-				this.updatePlayStatus();
-			});
-		}
+	next = ()=>{
+
+        this.setState({
+            currentTrackIndex : (this.state.currentTrackIndex + 1 >= this.state.currentTrackLen ) ? 0 : this.state.currentTrackIndex + 1
+        },() => {
+            this.updatePlayStatus();
+        });
 	}
 
 
@@ -137,9 +148,9 @@ class Player extends React.Component{
                         <div className="audio-body">
                             <div className="audio-backs">
                                 {/*时间显示*/}
-                                <Time />
+                                <Time playStatus={this.state.playStatus} duration={this.state.tracks[this.state.currentTrackIndex].duration} updateProgress={this.updateProgress} onNext={this.next} />
                                 {/*进度条*/}
-                                <Progress />
+                                <Progress progress={this.state.progress} onTouchStrat={this.pause}  />
                             </div>
                         </div>
                         {/*控制按钮*/}
