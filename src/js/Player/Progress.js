@@ -3,22 +3,66 @@ import React from 'react';
 class Progress extends React.Component{
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+		};
     }
+	
+	/**
+	 * 移动开始事件
+	 */
+	touchStart =(e)=>{
+		let pageFirstX = e.touches[0].pageX;
+		let parentNode = e.target.parentNode.parentNode;
+		let parentWidth = parentNode.offsetWidth;
+		let hasDoneWidth = e.target.parentNode.offsetWidth; //已听的进度
+		this.setState({
+			parentWidth : parentWidth,//总进度条的宽度
+			pageFirstX : pageFirstX,//一开始滑块的pageX
+			hasDoneWidth : hasDoneWidth, //未移动前的已听宽度
+			moveDoneWidth : hasDoneWidth, //移动过程中更新的已听进度
+		} , ()=>{
+			this.props.onTouchStrat()
+		});
+	}
+	
+	/**
+	 * 移动过程事件
+	 */
+    touchMove = (e) =>{
+		let hasDoneWidth = this.state.hasDoneWidth + e.touches[0].pageX - this.state.pageFirstX;
+		if(hasDoneWidth <= this.state.parentWidth){
+			let percentDone = ((hasDoneWidth / this.state.parentWidth) * 100).toFixed(2) + '%';
+			this.props.updateProgress(percentDone);
+		}
+    }
+	
+	/**
+	 * 移动时间完毕
+	 */
+	touchEnd = (e) => {
+		let hasDoneWidth = e.target.parentNode.offsetWidth; //已听的进度
+		let secondDone = ((hasDoneWidth / this.state.parentWidth) * (this.props.duration / 1000) );
+		let audio = document.getElementById('audio');
+		audio.currentTime = secondDone;
+		console.log(audio);
+		this.props.onTouchEnd();
+	}
 
-    touchMove(e){
-        console.log(e);
-    }
 
     render() {
         let progressStyle = {
-            // width : this.props.progress
-            width : '50%'
+            width : this.props.progress
         };
         return (
             <div className="audio-setbacks">
                 <i className="audio-this-setbacks" style={progressStyle}>
-                    <span className="audio-backs-btn" onTouchStart={this.props.onTouchStrat} onClick={this.touchMove} onTouchMove={this.touchMove}></span>
+                    <span className="audio-backs-btn"
+					 // onTouchStart={this.props.onTouchStrat}
+					 onTouchStart={this.touchStart}
+					 onTouchMove={this.touchMove}
+					 onTouchEnd={this.touchEnd}
+					 >
+					 </span>
                 </i>
                 <span className="audio-cache-setbacks"></span>
             </div>

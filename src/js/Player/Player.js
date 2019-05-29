@@ -64,7 +64,7 @@ class Player extends React.Component{
                         "name": "热门华语234",
                         "picUrl": "http://singerimg.kugou.com/uploadpic/softhead/200/20161209/20161209164303152140.jpg",
                     },
-                    "duration": 295575,
+                    "duration": 270000,
                     "mp3Url": "http://www.ytmp3.cn/down/69922.mp3"
                 }
                 ];
@@ -143,19 +143,26 @@ class Player extends React.Component{
                     {/*封面*/}
                     <Cover cover={this.state.tracks[this.state.currentTrackIndex]} />
                     <div className="audio-view">
-                        {/*音乐信息*/}
-                        <TrackInfo track={this.state.tracks[this.state.currentTrackIndex]}/>
+					
                         <div className="audio-body">
                             <div className="audio-backs">
                                 {/*时间显示*/}
                                 <Time playStatus={this.state.playStatus} duration={this.state.tracks[this.state.currentTrackIndex].duration} updateProgress={this.updateProgress} onNext={this.next} />
                                 {/*进度条*/}
-                                <Progress progress={this.state.progress} onTouchStrat={this.pause}  />
+                                <Progress 
+								progress={this.state.progress} 
+								onTouchStrat={this.pause} 
+								onTouchEnd={this.play} 
+								updateProgress={this.updateProgress} 
+								duration={this.state.tracks[this.state.currentTrackIndex].duration}  />
                             </div>
                         </div>
-                        {/*控制按钮*/}
-                        <Controls isPlay={this.state.playStatus} onPlay={this.play} onPrev={this.prev} onNext={this.next} />
 						
+						{/*音乐信息*/}
+						<TrackInfo track={this.state.tracks[this.state.currentTrackIndex]}/>
+						
+						{/*控制按钮*/}
+						<Controls isPlay={this.state.playStatus} onPlay={this.play} onPrev={this.prev} onNext={this.next} />
                         <audio id="audio" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>
                     </div>
                 </div>
