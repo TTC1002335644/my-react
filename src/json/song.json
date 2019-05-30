@@ -1,0 +1,49 @@
+[{
+		"name": "可惜没如果",
+		"artists": {
+			"name": "林俊杰"
+		},
+		"album": {
+			"name": "流行歌曲",
+			"picUrl": "http://singerimg.kugou.com/uploadpic/softhead/200/20161209/20161209164303152140.jpg"
+		},
+		"duration": 294,
+		"mp3Url": "http://www.ytmp3.cn/down/49138.mp3"
+	},
+	{
+		"name": "来自天堂的魔鬼  G.E.M.邓紫棋",
+		"artists": {
+			"name": "G.E.M.邓紫棋"
+		},
+		"album": {
+			"name": "热门华语",
+			"picUrl": "http://star.kuwo.cn/star/starheads/120/39/41/2312174491.jpg"
+		},
+		"duration": 245,
+		"mp3Url": "http://www.ytmp3.cn/down/33626.mp3"
+	},
+	{
+		"name": "白色风车",
+		"artists": {
+			"name": "周杰伦"
+		},
+		"album": {
+			"name": "热门华语",
+			"picUrl": "http://img1.kwcdn.kuwo.cn/star/albumcover/240/48/98/1928665504.jpg"
+		},
+		"duration": 270,
+		"mp3Url": "http://www.ytmp3.cn/down/69922.mp3"
+	},
+	{
+		"name": "七里香",
+		"artists": {
+			"name": "周杰伦"
+		},
+		"album": {
+			"name": "热门华语",
+			"picUrl": "http://img1.kwcdn.kuwo.cn/star/albumcover/240/48/98/1928665504.jpg"
+		},
+		"duration": 296,
+		"mp3Url": "http://www.ytmp3.cn/down/69827.mp3"
+	}
+]

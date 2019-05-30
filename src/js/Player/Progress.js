@@ -39,7 +39,7 @@ class Progress extends React.Component{
     }
 	
 	/**
-	 * 移动时间完毕
+	 * 移动事件完毕
 	 */
 	touchEnd = (e) => {
 	    // e.target.setAttribute('class' , e.target.getAttribute('class').replace(' audio-backs-btn-big' ,''));

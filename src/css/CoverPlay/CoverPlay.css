@@ -21,7 +21,7 @@ body{
 }
 
 .song-info{
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     height: 60px;
     top: 0px;
@@ -41,10 +41,34 @@ body{
 }
 #song-name-cover{
     font-size: 16px;
+	padding: 6px;
 }
 #songer-name-cover{
     font-size: 14px;
 }
+
+
+.song-lyric-cover{
+	max-height: calc(100% - 240px);
+	/* padding: 15px 5px; */
+	padding: 0px 5px;
+    margin: 15px 0px;
+	color: #ffffff;
+	text-align: center;
+	overflow: scroll;
+}
+
+.song-lyric-cover p{
+	margin: 5px 0px;
+	font-size: 18px;
+}
+
+.online-lyric{
+	color: #ff0000;
+	/* background-color: rgba(220, 245, 161, 0.16); */
+}
+.song-lyric-cover::-webkit-scrollbar {display:none}
+
 
 
 .audio-box-cover{
@@ -112,6 +136,7 @@ body{
     height: 2px;
     border-radius: 3px;
     background-color: #fff;
+	margin-left: 10px;
 }
 
 .audio-cache-setbacks-cover,
@@ -174,7 +199,7 @@ body{
 .audio-play-cover , .audio-stop-cover{
     width: 60px;
     height: 60px;
-    background-position-x : 60% ;
+    background-position-x : center ;
     /*background-color: rgba(247, 214, 50, 0.78);*/
 }
 
