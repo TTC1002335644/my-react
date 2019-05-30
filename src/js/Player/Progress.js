@@ -11,6 +11,7 @@ class Progress extends React.Component{
 	 * 移动开始事件
 	 */
 	touchStart =(e)=>{
+	    // e.target.className += ' audio-backs-btn-big';
 		let pageFirstX = e.touches[0].pageX;
 		let parentNode = e.target.parentNode.parentNode;
 		let parentWidth = parentNode.offsetWidth;
@@ -33,6 +34,7 @@ class Progress extends React.Component{
 		if(hasDoneWidth <= this.state.parentWidth){
 			let percentDone = ((hasDoneWidth / this.state.parentWidth) * 100).toFixed(2) + '%';
 			this.props.updateProgress(percentDone);
+
 		}
     }
 	
@@ -40,14 +42,13 @@ class Progress extends React.Component{
 	 * 移动时间完毕
 	 */
 	touchEnd = (e) => {
+	    // e.target.setAttribute('class' , e.target.getAttribute('class').replace(' audio-backs-btn-big' ,''));
 		let hasDoneWidth = e.target.parentNode.offsetWidth; //已听的进度
 		let secondDone = ((hasDoneWidth / this.state.parentWidth) * (this.props.duration / 1000) );
 		let audio = document.getElementById('audio');
 		audio.currentTime = secondDone;
-		console.log(audio);
 		this.props.onTouchEnd();
 	}
-
 
     render() {
         let progressStyle = {
@@ -57,7 +58,6 @@ class Progress extends React.Component{
             <div className="audio-setbacks">
                 <i className="audio-this-setbacks" style={progressStyle}>
                     <span className="audio-backs-btn"
-					 // onTouchStart={this.props.onTouchStrat}
 					 onTouchStart={this.touchStart}
 					 onTouchMove={this.touchMove}
 					 onTouchEnd={this.touchEnd}

@@ -7,15 +7,6 @@ class Time extends React.Component{
             now : '00:00',
         };
     }
-
-    tick(){
-        if(this.props.playStatus === true){
-            this.setState((prevState) => ({
-                now: this.timeCover()
-            }));
-        }
-    }
-
     /**
      * 设置定时器
      */
@@ -31,6 +22,18 @@ class Time extends React.Component{
     componentWillUnmount(){
         clearInterval(this.interval);
     }
+
+
+
+    tick(){
+        if(this.props.playStatus === true){
+            this.setState((prevState) =>({
+                now: this.timeCover()
+            }));
+
+        }
+    }
+
 
     /**
      * 获取时间
@@ -58,6 +61,8 @@ class Time extends React.Component{
         this.props.updateProgress(
             ( (now / this.props.duration) *100000).toFixed(2) + '%'
         );
+
+        // document.getElementById('test').innerText = now;
 
         return minutes + ':' + seconds;
     }

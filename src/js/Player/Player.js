@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../css/index/audio.css';
 import TrackInfo from "./TrackInfo";
 import Cover from "./Cover";
 import Time from "./Time";
@@ -40,18 +41,18 @@ class Player extends React.Component{
                     "mp3Url": "http://www.ytmp3.cn/down/49138.mp3"
                 },
                 {
-                    "name": "元日 ",
+                    "name": "来自天堂的魔鬼  G.E.M.邓紫棋",
                     "artists": [
                         {
-                            "name": "清弄",
+                            "name": "G.E.M.邓紫棋",
                         }
                     ],
                     "album": {
                         "name": "热门华语261",
                         "picUrl": "http://p4.music.126.net/ly2FJHh5-lYMdC3NZxvavQ==/7714173580661848.jpg",
                     },
-                    "duration": 109000,
-                    "mp3Url": "http://www.ytmp3.cn/down/69466.mp3"
+                    "duration": 245000,
+                    "mp3Url": "http://www.ytmp3.cn/down/33626.mp3"
                 },
                 {
                     "name": "白色风车-周杰伦",
@@ -66,6 +67,20 @@ class Player extends React.Component{
                     },
                     "duration": 270000,
                     "mp3Url": "http://www.ytmp3.cn/down/69922.mp3"
+                },
+                {
+                    "name": "七里香-周杰伦",
+                    "artists": [
+                        {
+                            "name": "流行歌曲",
+                        }
+                    ],
+                    "album": {
+                        "name": "热门华语234",
+                        "picUrl": "http://singerimg.kugou.com/uploadpic/softhead/200/20161209/20161209164303152140.jpg",
+                    },
+                    "duration": 296000,
+                    "mp3Url": "http://www.ytmp3.cn/down/69827.mp3"
                 }
                 ];
     }
@@ -90,8 +105,11 @@ class Player extends React.Component{
         this.setState({
            progress :  progress
         });
-    }
+    };
 
+    /**
+     * 更改播放状态
+     */
 	updatePlayStatus(){
 		let audio = document.getElementById('audio');
 		if(this.state.playStatus){
@@ -101,23 +119,31 @@ class Player extends React.Component{
 		}
 		
 	}
-
+    /**
+     * 暂停/播放
+     * */
 	play = ()=>{
 		this.setState({
 			playStatus : !this.state.playStatus
 		}, () =>{
 			this.updatePlayStatus();
 		});
-	}
+	};
 
+    /**
+     * 播放
+     * */
 	pause = ()=>{
         this.setState({
             playStatus : false
         }, () =>{
             this.updatePlayStatus();
         });
-    }
+    };
 
+    /**
+     * 上一首
+     * */
 	prev = ()=>{
         this.setState({
             currentTrackIndex : (this.state.currentTrackIndex - 1 < 0 ) ? this.state.currentTrackLen - 1 : this.state.currentTrackIndex - 1
@@ -125,7 +151,10 @@ class Player extends React.Component{
             this.updatePlayStatus();
         });
 	}
-	
+
+	/**
+     * 下一首
+     * */
 	next = ()=>{
 
         this.setState({
@@ -133,7 +162,7 @@ class Player extends React.Component{
         },() => {
             this.updatePlayStatus();
         });
-	}
+	};
 
 
     render (){
@@ -143,7 +172,6 @@ class Player extends React.Component{
                     {/*封面*/}
                     <Cover cover={this.state.tracks[this.state.currentTrackIndex]} />
                     <div className="audio-view">
-					
                         <div className="audio-body">
                             <div className="audio-backs">
                                 {/*时间显示*/}
@@ -163,7 +191,7 @@ class Player extends React.Component{
 						
 						{/*控制按钮*/}
 						<Controls isPlay={this.state.playStatus} onPlay={this.play} onPrev={this.prev} onNext={this.next} />
-                        <audio id="audio" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>
+                        <audio id="audio" preload="auto" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>
                     </div>
                 </div>
             </div>

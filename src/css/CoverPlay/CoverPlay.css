@@ -1,0 +1,222 @@
+@charset "utf-8";
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: cursive;
+}
+
+.info-body{
+    width: calc(100%);
+    height: 100vh;
+}
+
+.info-background{
+    height: 100%;
+    background-size: cover ;
+    background-repeat: no-repeat;
+    background-image: url("../../images/CoverPlay/test1.jpeg");
+}
+
+.song-info{
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0,0,0,0.6);
+}
+.back{
+    position: absolute;
+    left: 7px;
+}
+
+.song-message-cover{
+    color: #ffffff;
+    text-align: center;
+    margin: auto;
+}
+#song-name-cover{
+    font-size: 16px;
+}
+#songer-name-cover{
+    font-size: 14px;
+}
+
+
+.audio-box-cover{
+    position: fixed;
+    width: 100%;
+    min-width: 338px;
+    height: auto;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+}
+.audio-body-cover{
+    float: left;
+    width: calc(100% - 40px);
+    height: 28px;
+    padding: 0 20px;
+}
+
+.audio-view-cover{
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+}
+
+
+.audio-backs-cover{
+    position: relative;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 10px;
+    height: 20px;
+}
+
+.audio-this-time-cover , .audio-count-time-cover{
+    position: absolute;
+    top: 0;
+    width: 38px;
+    height: 22px;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.audio-this-time-cover{
+    left: 0;
+}
+.audio-count-time-cover{
+    /*right: 0;*/
+    right: -8px;
+    text-align: right;
+}
+
+.audio-setbacks-cover{
+    height: 2px;
+    border-radius: 3px;
+    background-color: #fff;
+    position: relative;
+    top: 50%;
+}
+
+.audio-setbacks-cover{
+    height: 2px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.audio-cache-setbacks-cover,
+.audio-this-setbacks-cover{
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 3px;
+}
+
+.audio-this-setbacks-cover{
+    background-color: #03a3ff;
+    z-index: 2;
+}
+
+.audio-backs-btn-cover{
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    margin-top: -7px;
+    top: 50%;
+    right: -4px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    border:4px double #03a3ff;
+}
+
+.audio-control-cover{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    flex-wrap : nowrap;
+}
+.btn-group-cover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow : 2;
+}
+
+.audio-btn-cover{
+    margin: 0 8px 20px;
+    background-color: rgba(3, 163, 255, 0.82);
+    border-radius: 50%;
+    background-size: 50% 50%;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+.audio-prev-cover , .audio-next-cover{
+    width: 40px;
+    height: 40px;
+    /*background-color: rgba(247, 214, 50, 0.78);*/
+
+}
+
+.audio-play-cover , .audio-stop-cover{
+    width: 60px;
+    height: 60px;
+    background-position-x : 60% ;
+    /*background-color: rgba(247, 214, 50, 0.78);*/
+}
+
+
+.audio-prev-cover{
+    background-position-x : 50% ;
+    background-image: url('../../images/CoverPlay/prev.png');
+}
+.audio-next-cover{
+    background-position-x : 60% ;
+    background-image: url('../../images/CoverPlay/next.png');
+}
+.audio-play-cover{
+    background-image: url('../../images/CoverPlay/play.png');
+}
+.audio-stop-cover{
+    background-image: url('../../images/CoverPlay/pause.png');
+}
+
+
+.audio-fun-cover{
+    margin-bottom : 20px;
+    flex-grow : 3;
+}
+.fun-bg{
+    width: 17px;
+    height: 17px;
+    margin: auto;
+    background-size: cover;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+.play-order{
+    background-image: url("../../images/CoverPlay/order.png");
+}
+.play-single{
+    background-image: url("../../images/CoverPlay/single.png");
+}
+.play-random{
+    background-image: url("../../images/CoverPlay/random.png");
+}
+.song-menu-cover{
+    background-image: url("../../images/CoverPlay/menu.png");
+}
