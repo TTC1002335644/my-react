@@ -18,7 +18,7 @@ class Time extends React.Component{
 	    );
 		
 		this.updateTime = setInterval(
-	        () => this.tick() , 400
+	        () => this.tick() , 500
 	    );
 	}
 	
@@ -37,7 +37,8 @@ class Time extends React.Component{
 	tick(){
 	    if(this.state.hasCanPlay === true && this.props.playStatus === true){
 	        this.setState((prevState) =>({
-	            now : this.timeCover(this.state.audio.currentTime)
+	            // now : this.timeCover(this.state.audio.currentTime)
+	            now : this.timeCover(this.audio.currentTime)
 	        }));
 	    }
 	}
@@ -50,7 +51,8 @@ class Time extends React.Component{
 	    /**
 	     * 到时间了，就下一首时间
 	     */
-	    if(now > this.state.duration && this.state.audio.ended === true){
+	    // if(now > this.state.duration && this.state.audio.ended === true){
+	    if(now >= this.state.duration){
 	        this.props.onNext();
 	    }
 	    return this.dealWithTime(now , true);
@@ -93,6 +95,7 @@ class Time extends React.Component{
 					audio : audio,
 					hasCanPlay : true,
 				});
+				this.audio = audio;
 				clearInterval(this.interval);
 			}
 		}
@@ -161,7 +164,8 @@ class Time extends React.Component{
 	updateAudioCurrentTime(secondDone){
 		if(secondDone){
 			try{
-				this.state.audio.currentTime = secondDone.toFixed(3);
+				// this.state.audio.currentTime = secondDone.toFixed(3);
+				this.audio.currentTime = secondDone.toFixed(3);
 			}catch(error){
 				this.props.onTouchEnd();
 			}

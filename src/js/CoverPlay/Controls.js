@@ -6,7 +6,6 @@ class Controls extends React.Component{
 		this.state = {};
 	}
 
-	
 	render(){
 		let playClass = (this.props.isPlay === true) ? 'audio-btn-cover audio-stop-cover':' audio-btn-cover audio-play-cover';
 		return(
