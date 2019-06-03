@@ -21,6 +21,8 @@ class CoverPlay extends React.Component{
 	
 	getInitSongIndex(){
 		return {
+			canPlay : false, //歌曲是否可以播放
+			hasLoadLyric : false , //是否加载歌词
 			currentTrackLen: this.state.tracks.length, //歌单歌曲数
 			currentTrackIndex: 0, //当前播放的歌曲索引，默认加载第一首歌
 			currentTime: 0, //当前歌曲播放的时间
@@ -30,6 +32,27 @@ class CoverPlay extends React.Component{
 			mode : 1 , //播放模式:1=顺序播放,2=随机播放,3=单曲循环
 		};
 	}
+
+	/**
+	 * 更新歌曲的hasLoadLyric状态
+	 * @param status
+	 */
+	updateHasLoadLyric = (status)=>{
+		console.log('diaoyongle');
+		this.setState({
+			hasLoadLyric : status
+		});
+	};
+
+	/**
+	 * 更新歌曲的canPlay状态
+	 * @param status
+	 */
+	updateCanPlay= (status)=>{
+    	this.setState({
+			canPlay : status
+		});
+	};
 	
 	/**
 	 * 更新更新进度
@@ -51,7 +74,6 @@ class CoverPlay extends React.Component{
 		}else{
 			audio.pause();
 		}
-		
 	}
 	
 	/**
@@ -85,7 +107,7 @@ class CoverPlay extends React.Component{
 		}, () =>{
 		    this.updatePlayStatus();
 		});
-	}
+	};
 	
 	/**
 	 * 上一首
@@ -94,9 +116,11 @@ class CoverPlay extends React.Component{
 	    this.setState({
 	        currentTrackIndex : (this.state.currentTrackIndex - 1 < 0 ) ? this.state.currentTrackLen - 1 : this.state.currentTrackIndex - 1
 	    },() => {
-	        this.updatePlayStatus();
+	        // this.updatePlayStatus();
+	        this.focusPlay();
+			this.updateCanPlay(false);
 	    });
-	}
+	};
 	
 	/**
 	 * 下一首
@@ -105,7 +129,9 @@ class CoverPlay extends React.Component{
 	    this.setState({
 	        currentTrackIndex : (this.state.currentTrackIndex + 1 >= this.state.currentTrackLen ) ? 0 : this.state.currentTrackIndex + 1
 	    },() => {
-	        this.updatePlayStatus();
+	        // this.updatePlayStatus();
+	        this.focusPlay();
+	        this.updateCanPlay(false);
 	    });
 	};
 	
@@ -165,11 +191,8 @@ class CoverPlay extends React.Component{
 					<SongInfo songInfo={this.state.tracks[this.state.currentTrackIndex]}/>
 					
 					{/*歌词*/}
-					<Lyric lyric={this.state.lyric} />
-					
-					
-					
-					
+					<Lyric lyric={this.state.tracks[this.state.currentTrackIndex]['lyric']} hasLoadLyric={this.state.hasLoadLyric} updateLoadLyric={this.updateHasLoadLyric} />
+
 					<div className='audio-box-cover'>
 						
 						{/*时间进度条组件*/}
@@ -180,12 +203,12 @@ class CoverPlay extends React.Component{
 						 onNext={this.next}
 						 progress={this.state.progress} 
 						 onTouchStrat={this.pause} 
-						 onTouchEnd={this.focusPlay} 
+						 onTouchEnd={this.focusPlay}
+						 canPlay={this.updateCanPlay}
 						/>
 						
-						<Controls  isPlay={this.state.playStatus} onPlay={this.play}  onPrev={this.prev} onNext={this.next} />
-						
-						
+						<Controls  isPlay={this.state.playStatus} onPlay={this.play}  onPrev={this.prev} onNext={this.next} canPlay={this.state.canPlay} />
+
 						<audio id="audio" preload="auto" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>
 						
 					</div>
