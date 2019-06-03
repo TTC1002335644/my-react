@@ -16,6 +16,7 @@ class CoverPlay extends React.Component{
 			lyric : this.getSongLyric(),
 			tracks : songJson,
 		};
+		
 		this.state = Object.assign(this.state , this.getInitSongIndex());
     }
 	
