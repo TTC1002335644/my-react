@@ -163,6 +163,11 @@ class Player extends React.Component{
             this.updatePlayStatus();
         });
 	};
+	
+	jumpInfo =()=>{
+		console.log(123456);
+		this.props.history.push('/info');
+	}
 
 
     render (){
@@ -170,7 +175,7 @@ class Player extends React.Component{
             <div className="audio-box">
                 <div className="audio-container">
                     {/*封面*/}
-                    <Cover cover={this.state.tracks[this.state.currentTrackIndex]} />
+                    <Cover cover={this.state.tracks[this.state.currentTrackIndex]} onClick={this.jumpInfo}/>
                     <div className="audio-view">
                         <div className="audio-body">
                             <div className="audio-backs">

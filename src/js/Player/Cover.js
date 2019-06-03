@@ -11,7 +11,7 @@ class Cover extends React.Component{
             backgroundImage:`url(` + this.props.cover.album.picUrl + `)`
         };
         return (
-            <div className="audio-cover" style={coverBack}></div>
+            <div className="audio-cover" style={coverBack} onClick={this.props.onClick}></div>
         );
     }
 }
