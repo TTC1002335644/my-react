@@ -89,6 +89,7 @@ class Time extends React.Component{
 		if(audio){
 			audio.load();
 			audio.oncanplay = ()=>{
+				this.props.canPlay(true);
 				let duration = (audio.duration === 0) ? this.props.songInfo.duration : audio.duration;
 				this.setState({
 					duration : duration,
@@ -121,7 +122,7 @@ class Time extends React.Component{
 		} , ()=>{
 			this.props.onTouchStrat()
 		});
-	}
+	};
 	
 	/**
 	 * 移动过程事件
@@ -132,7 +133,7 @@ class Time extends React.Component{
 			let percentDone = ((hasDoneWidth / this.state.parentWidth) * 100).toFixed(2) + '%';
 			this.props.updateProgress(percentDone);
 		}
-	}
+	};
 	
 	/**
 	 * 移动事件完毕
@@ -141,7 +142,7 @@ class Time extends React.Component{
 		let hasDoneWidth = e.target.parentNode.offsetWidth; //已听的进度
 		let secondDone = ( ( hasDoneWidth / this.state.parentWidth) * this.state.duration );
 		this.updateAudioCurrentTime(secondDone);
-	}
+	};
 	
 	/**
 	 * 进度条点击
@@ -156,7 +157,7 @@ class Time extends React.Component{
 		let currentPosition = e.pageX;
 		let secondDone = ( ( currentPosition - ePageX ) / eWidth ) * this.state.duration ;
 		this.updateAudioCurrentTime(secondDone);
-	}
+	};
 	
 	/**
 	 * 更新播放状态和播放开始时间

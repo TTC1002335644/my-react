@@ -150,7 +150,7 @@ class Player extends React.Component{
         },() => {
             this.updatePlayStatus();
         });
-	}
+	};
 
 	/**
      * 下一首

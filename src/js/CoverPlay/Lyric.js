@@ -4,21 +4,41 @@ class Lyric extends React.Component{
 	
 	constructor(props){
 		super(props);
-		this.state = {};
+		this.state = {
+			lyric : this.props.lyric
+		};
 	}
 	
 	
-	createSongLyric(){
-		let LyricArr = this.props.lyric.map(function(v){
-			return '<p>'+v.content+'</p>';
-		});
-		return LyricArr.join('');
-	}
+	createSongLyric (){
+		if(this.props.hasLoadLyric === false){
+			// console.log(this.props.lyric);
+			console.log(this.props.updateLoadLyric);
+			this.props.updateLoadLyric(true);
+			this.kugouLyric();
+			return '<p>'+this.props.lyric+'</p>';
+		}else{
+			return '<p>'+this.state.lyric+'</p>';
+		}
+	};
+
+	/**
+	 * kg处理歌词
+	 */
+	kugouLyric(){
+		try{
+			let lyric = this.props.lyric;
+			console.log(lyric.split('\n'));
+		}catch (e) {
+			console.log(e);
+		}
+	};
 	
 	
 	render(){
 		return (
-			<div className='song-lyric-cover' dangerouslySetInnerHTML={{ __html: this.createSongLyric() }}>
+			<div className='song-lyric-cover' dangerouslySetInnerHTML={{ __html: this.createSongLyric()}}>
+
 			</div>
 		);
 	}
