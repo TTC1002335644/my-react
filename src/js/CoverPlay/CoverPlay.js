@@ -3,21 +3,19 @@ import Lyric from './Lyric';
 import SongInfo from './SongInfo';
 import Time from './Time';
 import Controls from './Controls';
+import Audio from '../Common/Audio';
+import CommonPlay from '../Common/CommonPlay';
 
 import '../../css/CoverPlay/CoverPlay.css';
 import '../../css/Common/Common.css';
 
-import songJson from '../../json/song.json';
-
-class CoverPlay extends React.Component{
+class CoverPlay extends CommonPlay{
     constructor(props){
         super(props);
-        this.state = {
-			lyric : this.getSongLyric(),
-			tracks : songJson,
-		};
-		
-		this.state = Object.assign(this.state , this.getInitSongIndex());
+        // this.state = {
+		// 	tracks : songJson,
+		// };
+		// this.state = Object.assign(this.state , this.getInitSongIndex());
     }
 	
 	getInitSongIndex(){
@@ -45,143 +43,8 @@ class CoverPlay extends React.Component{
 		});
 	};
 
-	/**
-	 * 更新歌曲的canPlay状态
-	 * @param status
-	 */
-	updateCanPlay= (status)=>{
-    	this.setState({
-			canPlay : status
-		});
-	};
+
 	
-	/**
-	 * 更新更新进度
-	 *
-	 * */
-	updateProgress = (progress)=>{
-	    this.setState({
-	       progress :  progress
-	    });
-	};
-	
-	/**
-	 * 更改播放状态
-	 */
-	updatePlayStatus(){
-		let audio = document.getElementById('audio');
-		if(this.state.playStatus === true){
-			audio.play();
-		}else{
-			audio.pause();
-		}
-	}
-	
-	/**
-	 * 暂停/播放
-	 */
-	play = ()=>{
-		this.setState({
-			playStatus : !this.state.playStatus
-		}, () =>{
-			this.updatePlayStatus();
-		});
-	};
-	
-	/**
-	 * 播放
-	 */
-	pause = ()=>{
-	    this.setState({
-	        playStatus : false
-	    }, () =>{
-	        this.updatePlayStatus();
-	    });
-	};
-	
-	/**
-	 * 强行播放
-	 */
-	focusPlay =()=>{
-		this.setState({
-		    playStatus : true
-		}, () =>{
-		    this.updatePlayStatus();
-		});
-	};
-	
-	/**
-	 * 上一首
-	 */
-	prev = ()=>{
-	    this.setState({
-	        currentTrackIndex : (this.state.currentTrackIndex - 1 < 0 ) ? this.state.currentTrackLen - 1 : this.state.currentTrackIndex - 1
-	    },() => {
-	        // this.updatePlayStatus();
-	        this.focusPlay();
-			this.updateCanPlay(false);
-	    });
-	};
-	
-	/**
-	 * 下一首
-	 */
-	next = ()=>{
-	    this.setState({
-	        currentTrackIndex : (this.state.currentTrackIndex + 1 >= this.state.currentTrackLen ) ? 0 : this.state.currentTrackIndex + 1
-	    },() => {
-	        // this.updatePlayStatus();
-	        this.focusPlay();
-	        this.updateCanPlay(false);
-	    });
-	};
-	
-	
-	
-	getSongLyric(){
-		return [
-			{
-				content : '夜里做了美丽的恶梦',
-				time : 2000,
-				total : 1500,
-			},
-			{
-				content : '想清醒我却抵不过心动想清醒我却抵不过心动想清醒我却抵不过心动想清醒我却抵不过心动想清醒我却抵不过心动年后',
-				time : 4000,
-				total : 3000,
-			},
-			{
-				content : '梦里你是无底的黑洞',
-				time : 8000,
-				total : 3000,
-			},
-			{
-				content : '我无力抗拒失重',
-				time : 11000,
-				total : 5000,
-			},
-			{
-				content : '我的意识自控脉搏流动',
-				time : 16000,
-				total : 5000,
-			},
-			{
-				content : '全被你神秘引力操控',
-				time : 21000,
-				total : 2000,
-			},
-			{
-				content : '亲爱的你是危险的迷宫',
-				time : 23000,
-				total : 1500,
-			},
-			{
-				content : '我找不到出口',
-				time : 27000,
-				total : 1500,
-			},
-		];
-	}
 
 
     render(){
@@ -207,10 +70,10 @@ class CoverPlay extends React.Component{
 						 onTouchEnd={this.focusPlay}
 						 canPlay={this.updateCanPlay}
 						/>
-						
 						<Controls  isPlay={this.state.playStatus} onPlay={this.play}  onPrev={this.prev} onNext={this.next} canPlay={this.state.canPlay} />
+						<Audio url={this.state.tracks[this.state.currentTrackIndex].mp3Url} />
 
-						<audio id="audio" preload="auto" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>
+						{/*<audio id="audio" preload="auto" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>*/}
 						
 					</div>
 				

@@ -5,22 +5,21 @@ import Cover from "./Cover";
 import Time from "./Time";
 import Progress from "./Progress";
 import Controls from "./Controls";
-
+import Audio from '../Common/Audio';
+import CommonPlay from '../Common/CommonPlay';
 
 /**
  * 播放器组件
  */
-class Player extends React.Component{
-
+class Player extends CommonPlay{
     constructor(props){
         super(props);
-		let songList = this.getInitSongLists();
-        this.state = {
-            tracks : songList
-        };
-		this.state = this.getInitSongIndex();
-		this.state.tracks = songList;
-        console.log(this.state);
+		// let songList = this.getInitSongLists();
+        // this.state = {
+        //     tracks : songList
+        // };
+		// this.state = this.getInitSongIndex();
+		// this.state.tracks = songList;
     }
 
     getInitSongLists(){
@@ -97,72 +96,8 @@ class Player extends React.Component{
         };
     }
 
-    /**
-     * 更新更新进度
-     *
-     * */
-    updateProgress = (progress)=>{
-        this.setState({
-           progress :  progress
-        });
-    };
 
-    /**
-     * 更改播放状态
-     */
-	updatePlayStatus(){
-		let audio = document.getElementById('audio');
-		if(this.state.playStatus){
-			audio.play();
-		}else{
-			audio.pause();
-		}
-		
-	}
-    /**
-     * 暂停/播放
-     * */
-	play = ()=>{
-		this.setState({
-			playStatus : !this.state.playStatus
-		}, () =>{
-			this.updatePlayStatus();
-		});
-	};
 
-    /**
-     * 播放
-     * */
-	pause = ()=>{
-        this.setState({
-            playStatus : false
-        }, () =>{
-            this.updatePlayStatus();
-        });
-    };
-
-    /**
-     * 上一首
-     * */
-	prev = ()=>{
-        this.setState({
-            currentTrackIndex : (this.state.currentTrackIndex - 1 < 0 ) ? this.state.currentTrackLen - 1 : this.state.currentTrackIndex - 1
-        },() => {
-            this.updatePlayStatus();
-        });
-	};
-
-	/**
-     * 下一首
-     * */
-	next = ()=>{
-
-        this.setState({
-            currentTrackIndex : (this.state.currentTrackIndex + 1 >= this.state.currentTrackLen ) ? 0 : this.state.currentTrackIndex + 1
-        },() => {
-            this.updatePlayStatus();
-        });
-	};
 	
 	jumpInfo =()=>{
 		console.log(123456);
@@ -180,7 +115,15 @@ class Player extends React.Component{
                         <div className="audio-body">
                             <div className="audio-backs">
                                 {/*时间显示*/}
-                                <Time playStatus={this.state.playStatus} duration={this.state.tracks[this.state.currentTrackIndex].duration} updateProgress={this.updateProgress} onNext={this.next} />
+                                <Time
+                                    playStatus={this.state.playStatus}
+                                    updateProgress={this.updateProgress}
+                                    onNext={this.next}
+                                    canPlay={this.updateCanPlay}
+                                    onTouchStrat={this.pause}
+                                    onTouchEnd={this.focusPlay}
+                                    songInfo={this.state.tracks[this.state.currentTrackIndex]}
+                                />
                                 {/*进度条*/}
                                 <Progress 
 								progress={this.state.progress} 
@@ -196,7 +139,8 @@ class Player extends React.Component{
 						
 						{/*控制按钮*/}
 						<Controls isPlay={this.state.playStatus} onPlay={this.play} onPrev={this.prev} onNext={this.next} />
-                        <audio id="audio" preload="auto" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>
+						<Audio url={this.state.tracks[this.state.currentTrackIndex].mp3Url} />
+                        {/*<audio id="audio" preload="auto" src={this.state.tracks[this.state.currentTrackIndex].mp3Url}></audio>*/}
                     </div>
                 </div>
             </div>

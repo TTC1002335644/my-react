@@ -13,7 +13,6 @@ class Lyric extends React.Component{
 	createSongLyric (){
 		if(this.props.hasLoadLyric === false){
 			// console.log(this.props.lyric);
-			console.log(this.props.updateLoadLyric);
 			this.props.updateLoadLyric(true);
 			this.kugouLyric();
 			return '<p>'+this.props.lyric+'</p>';
@@ -28,9 +27,7 @@ class Lyric extends React.Component{
 	kugouLyric(){
 		try{
 			let lyric = this.props.lyric;
-			console.log(lyric.split('\n'));
 		}catch (e) {
-			console.log(e);
 		}
 	};
 	
